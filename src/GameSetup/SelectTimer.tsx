@@ -1,19 +1,33 @@
-import React from 'react';
-import { STEP, TIMER } from '../Contracts';
+import React from "react";
+import { STEP, TIMER, ISetupStep, DIRECTION } from "../Contracts";
+import SelectOptions from "../Components/SelectOptions";
 
-interface Props {
-    setStep: (step:STEP)=> void,
-    setTimer: (timerTotal:TIMER)=> void,
+interface Props extends ISetupStep {
+  setTimer: (timerTotal: TIMER) => void;
 }
 
-const SelectTimer = ( { setStep, setTimer } : Props ) => {
+const SelectTimer = ({ toStep, setTimer }: Props) => {
+  const setTimerOption = (timer: TIMER) => {
+    setTimer(timer);
+    toStep(STEP.SELECT_PLAYERS_NUMBER, DIRECTION.FORTH);
+  };
+
   return (
-    <div className="app">
-      <button className={"btn btn-primary"} onClick={()=>setStep(STEP.SELECT_LIFE)}>Back</button>
-      Set timer
-      <button className={"btn btn-primary"} onClick={()=>setStep(STEP.SELECT_PLAYERS_NUMBER)} >Set players</button>
+    <div className="container h-100">
+      <div className="row">
+        <div className={"col-12"}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => toStep(STEP.SELECT_LIFE, DIRECTION.BACK)}
+          >
+            Back
+          </button>
+          <h1>Set timer</h1>
+          <SelectOptions options={TIMER} setOption={setTimerOption} />
+        </div>
+      </div>
     </div>
   );
-}
+};
 
 export default SelectTimer;
