@@ -27,7 +27,7 @@ function App() {
   const [timerTotal, setTimer] = useState(TIMER.none);
   const [playersNumber, setPlayersNumber] = useState(PLAYERS.p5);
   const [boardType, setBoardType] = useState(BOARD_TYPE.Edge);
-  const [players, setPlayers] = useState<Array<IPlayer>>([]);
+  const [initPlayers, setInitPlayers] = useState<Array<IPlayer>>([]); // fixed init values
 
   const toStep = (step: STEP, direction: DIRECTION) => {
     setStep(step);
@@ -55,7 +55,7 @@ function App() {
           playersNumber={playersNumber}
           timerTotal={timerTotal}
           lifeTotal={lifeTotal}
-          setPlayers={setPlayers}
+          setInitPlayers={setInitPlayers}
         />
       )}
       {step === STEP.SELECT_BOARD && (
@@ -68,11 +68,13 @@ function App() {
       {step === STEP.SELECT_PLAYERS_ORDER && (
         <SelectPlayersOrder
           toStep={toStep}
-          players={players}
-          setPlayers={setPlayers}
+          players={initPlayers}
+          setPlayers={setInitPlayers}
         />
       )}
-      {step === STEP.BOARD && <Board players={players} setStep={setStep} />}
+      {step === STEP.BOARD && (
+        <Board setStep={setStep} initPlayers={initPlayers} />
+      )}
     </>
   );
 }

@@ -9,12 +9,13 @@ import {
   LIFE_TOTAL
 } from "../Contracts";
 import { defaultPlayers } from "../Data";
+import { cloneDeep } from "lodash";
 
 interface Props extends ISetupStep {
   playersNumber: PLAYERS;
   timerTotal: TIMER;
   lifeTotal: LIFE_TOTAL;
-  setPlayers: (players: Array<IPlayer>) => void;
+  setInitPlayers: (players: Array<IPlayer>) => void;
 }
 
 const SelectPlayersName = ({
@@ -22,10 +23,10 @@ const SelectPlayersName = ({
   playersNumber,
   lifeTotal,
   timerTotal,
-  setPlayers
+  setInitPlayers
 }: Props) => {
   const [setupPlayers, setSetupPlayers] = useState<Array<IPlayer>>(
-    defaultPlayers.slice(0, playersNumber)
+    cloneDeep(defaultPlayers.slice(0, playersNumber))
   );
 
   const setGamePlayers = () => {
@@ -35,7 +36,7 @@ const SelectPlayersName = ({
         player.timer = Math.round((timerTotal as number) / playersNumber);
       }
     });
-    setPlayers(setupPlayers);
+    setInitPlayers(setupPlayers);
     toStep(STEP.SELECT_PLAYERS_ORDER, DIRECTION.FORTH);
   };
 
