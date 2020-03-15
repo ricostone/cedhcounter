@@ -1,0 +1,101 @@
+.cover-animation{
+    height:100%;
+    width:100%;
+}
+
+.animation-container  {
+    width: 200px;
+    height: 200px;
+    left: 40%;
+    position: absolute;
+    top: 15%;
+}
+
+.speed-1 {
+  -webkit-animation-duration: 3s;
+}
+
+.speed-2 {
+  -webkit-animation-duration: 5s;
+}
+
+.speed-3 {
+  -webkit-animation-duration: 6s;
+}
+.speed-4 {
+-webkit-animation-duration: 8s;
+}
+.speed-5 {
+-webkit-animation-duration: 10s;
+}
+  
+
+.circle-animation {
+   -webkit-animation-iteration-count: infinite;
+   -webkit-animation-timing-function: linear;
+   width: 100%;
+   height: 100%;
+   -webkit-animation-name: circle;
+   position: relative;
+   display : block;
+}
+
+.counter {
+   width: 50px;
+   height: 50px;
+   -webkit-animation-duration: inherit;
+   -webkit-animation-direction: reverse;
+   -webkit-animation-timing-function: inherit;
+   -webkit-animation-iteration-count: inherit;
+   -webkit-animation-name: inherit;
+}
+
+
+
+.mana-green {
+    top : -5%;
+    left:-20%;
+    color:green;
+}
+
+.mana-blue {
+  top : -100%;
+  left:20%;
+  color:blue;
+}
+
+.mana-red{
+    top : -202%;
+    left:30%;
+    color:red;
+}
+
+.mana-black {
+    top : -300%;
+    left:5%;
+    color:darkslategrey;
+}
+
+.mana-white {
+    top : -400%;
+    color:yellow;
+}
+
+
+  
+.inner {
+    width: 100px;
+	height: 100px;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 100px;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: block;
+}
+
+@keyframes circle {
+    from {-webkit-transform: rotateZ(0deg)}
+    to {-webkit-transform: rotateZ(360deg)}
+}

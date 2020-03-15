@@ -10,6 +10,8 @@ import {
 } from "../Contracts";
 import { defaultPlayers } from "../Data";
 import { cloneDeep } from "lodash";
+import SetupLayout from "../Components/SetupLayout";
+import SetupBackButton from "../Components/SetupBackButton";
 
 interface Props extends ISetupStep {
   playersNumber: PLAYERS;
@@ -35,33 +37,42 @@ const SelectPlayersName = ({
       if (timerTotal !== TIMER.none) {
         player.timer = Math.round((timerTotal as number) / playersNumber);
       }
+      return player;
     });
     setInitPlayers(setupPlayers);
     toStep(STEP.SELECT_PLAYERS_ORDER, DIRECTION.FORTH);
   };
 
-  return (
-    <div className="container h-100">
-      <div className="row">
-        <div className={"col-12"}>
-          <button
-            className={"btn btn-primary"}
-            onClick={() => toStep(STEP.SELECT_BOARD, DIRECTION.BACK)}
-          >
-            Back
-          </button>
-          <h1>Set players name</h1>
-          <p>Players number : {playersNumber}</p>
-          <button
-            className={"btn btn-primary"}
-            onClick={() => setGamePlayers()}
-          >
-            Set players
-          </button>
-        </div>
-      </div>
-    </div>
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+    index: number
+  ) => {
+    setupPlayers[index].name = event.target.value;
+    setSetupPlayers([...setupPlayers]);
+  };
+
+  const SelectPlayersNamesComponent = (
+    <>
+      <SetupBackButton
+        onBack={() => toStep(STEP.SELECT_BOARD, DIRECTION.BACK)}
+      />
+      <h1>Set players name</h1>
+      <p>Players number : {playersNumber}</p>
+      {setupPlayers.map((player, i) => (
+        <input
+          key={i}
+          type="text"
+          value={player.name}
+          onChange={e => handleChange(e, i)}
+        />
+      ))}
+      <button className={"btn btn-primary"} onClick={() => setGamePlayers()}>
+        Next
+      </button>
+    </>
   );
+
+  return <SetupLayout setupComponent={SelectPlayersNamesComponent} />;
 };
 
 export default SelectPlayersName;

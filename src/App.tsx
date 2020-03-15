@@ -34,6 +34,9 @@ function App() {
     setDirection(direction);
   };
 
+  console.log(direction);
+  console.log(boardType);
+
   return (
     <>
       {step === STEP.HOME && <Home toStep={toStep} />}

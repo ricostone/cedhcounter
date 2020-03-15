@@ -13,7 +13,7 @@ const SelectOptions = ({ options, setOption }: Props) => {
         .map((key, i) => {
           return (
             <button
-              className={"btn btn-primary"}
+              className={"btn btn-primary ml-2"}
               onClick={() => setOption(options[key])}
               key={i}
             >

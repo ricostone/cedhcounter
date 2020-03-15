@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { LIFE_TOTAL, TIMER, STEP, IPlayer } from "../Contracts";
+import { STEP, IPlayer } from "../Contracts";
 import PlayerTile from "./PlayerTile";
 import { cloneDeep } from "lodash";
 
@@ -9,7 +9,6 @@ interface Props {
 }
 
 const Board = ({ setStep, initPlayers }: Props) => {
-
   const defaultValues = cloneDeep(initPlayers);
   const [players, setPlayers] = useState<Array<IPlayer>>(defaultValues);
 
@@ -21,16 +20,16 @@ const Board = ({ setStep, initPlayers }: Props) => {
     );
   };
 
-  const updateLife = (playerIndex:number, number: number) => {
+  const updateLife = (playerIndex: number, number: number) => {
     players[playerIndex].life = players[playerIndex].life + number;
     setPlayers([...players]);
   };
 
-  const setAlive = (playerIndex:number, heIs:boolean) => {
+  const setAlive = (playerIndex: number, heIs: boolean) => {
     players[playerIndex].alive = heIs;
-    if(heIs && players[playerIndex].life <= 0){
-      players[playerIndex].life = 1 ;
-    } 
+    if (heIs && players[playerIndex].life <= 0) {
+      players[playerIndex].life = 1;
+    }
     setPlayers([...players]);
   };
 
@@ -45,8 +44,14 @@ const Board = ({ setStep, initPlayers }: Props) => {
             Home
           </button>
           <div className="row">
-            { players.map((player, i) => (
-              <PlayerTile key={i} player={player} playerIndex={i} updateLife={updateLife} setAlive={setAlive} />
+            {players.map((player, i) => (
+              <PlayerTile
+                key={i}
+                player={player}
+                playerIndex={i}
+                updateLife={updateLife}
+                setAlive={setAlive}
+              />
             ))}
           </div>
           <button className={"btn btn-primary"} onClick={() => reset()}>

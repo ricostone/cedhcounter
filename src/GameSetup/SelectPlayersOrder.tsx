@@ -1,6 +1,11 @@
 import React from "react";
 import { STEP, IPlayer, DIRECTION, ISetupStep } from "../Contracts";
 import { shuffle } from "../Utils";
+import SetupLayout from "../Components/SetupLayout";
+import SetupBackButton from "../Components/SetupBackButton";
+import PlayerReorder from "../Components/PlayerReorder";
+import { DndProvider } from "react-dnd";
+import Backend from "react-dnd-html5-backend";
 
 interface Props extends ISetupStep {
   players: Array<IPlayer>;
@@ -8,29 +13,38 @@ interface Props extends ISetupStep {
 }
 
 const SelectPlayersOrder = ({ toStep, players, setPlayers }: Props) => {
-  const setGamePlayersOrder = () => {
+  const setRandomPlayersOrder = () => {
     setPlayers(shuffle(players));
+    startGame();
+  };
+
+  const startGame = () => {
     toStep(STEP.BOARD, DIRECTION.FORTH);
   };
 
-  return (
-    <div className="container h-100">
-      <div className="row">
-        <div className={"col-12"}>
-          <button
-            className={"btn btn-primary"}
-            onClick={() => toStep(STEP.SELECT_PLAYERS_NAME, DIRECTION.BACK)}
-          >
-            Back
-          </button>
-          <h1>Set players order</h1>
-          <button className={"btn btn-primary"} onClick={setGamePlayersOrder}>
-            Random
-          </button>
-        </div>
-      </div>
-    </div>
+  const SelectPlayersNumberComponent = (
+    <>
+      <SetupBackButton
+        onBack={() => toStep(STEP.SELECT_PLAYERS_NAME, DIRECTION.BACK)}
+      />
+      <h1>Set players order</h1>
+      <button className={"btn btn-primary"} onClick={setRandomPlayersOrder}>
+        Random !
+      </button>
+      <DndProvider backend={Backend}>
+        <PlayerReorder
+          players={players}
+          setPlayers={setPlayers}
+          toStep={toStep}
+        />
+      </DndProvider>
+      <button className={"btn btn-primary"} onClick={startGame}>
+        Start the game !
+      </button>
+    </>
   );
+
+  return <SetupLayout setupComponent={SelectPlayersNumberComponent} />;
 };
 
 export default SelectPlayersOrder;

@@ -1,6 +1,8 @@
 import React from "react";
 import { STEP, PLAYERS, ISetupStep, DIRECTION } from "../Contracts";
 import SelectOptions from "../Components/SelectOptions";
+import SetupLayout from "../Components/SetupLayout";
+import SetupBackButton from "../Components/SetupBackButton";
 
 interface Props extends ISetupStep {
   setPlayersNumber: (playersNumber: PLAYERS) => void;
@@ -15,22 +17,17 @@ const SelectPlayersNumber = ({ toStep, setPlayersNumber }: Props) => {
     );
   };
 
-  return (
-    <div className="container h-100">
-      <div className="row">
-        <div className={"col-12"}>
-          <button
-            className={"btn btn-primary"}
-            onClick={() => toStep(STEP.SELECT_TIMER, DIRECTION.BACK)}
-          >
-            Back
-          </button>
-          <h1>Set players number</h1>
-          <SelectOptions options={PLAYERS} setOption={setPlayersNumberOption} />
-        </div>
-      </div>
-    </div>
+  const SelectPlayersNumberComponent = (
+    <>
+      <SetupBackButton
+        onBack={() => toStep(STEP.SELECT_TIMER, DIRECTION.BACK)}
+      />
+      <h1>Set players number</h1>
+      <SelectOptions options={PLAYERS} setOption={setPlayersNumberOption} />
+    </>
   );
+
+  return <SetupLayout setupComponent={SelectPlayersNumberComponent} />;
 };
 
 export default SelectPlayersNumber;
