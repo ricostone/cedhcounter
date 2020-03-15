@@ -3,13 +3,12 @@ import { IPlayer } from "../Contracts";
 
 interface Props {
   player: IPlayer;
-  playerIndex:number;
-  setAlive(playerIndex:number, heIs:boolean):void;
-  updateLife(playerIndex:number, total:number):void;
+  playerIndex: number;
+  setAlive(playerIndex: number, heIs: boolean): void;
+  updateLife(playerIndex: number, total: number): void;
 }
 
 const PlayerTile = ({ player, playerIndex, setAlive, updateLife }: Props) => {
-  
   return (
     <div className={"col-4 border border-primary"}>
       {!player.alive || player.life <= 0 ? (
@@ -17,7 +16,10 @@ const PlayerTile = ({ player, playerIndex, setAlive, updateLife }: Props) => {
           <span role="img" aria-label={"dead"}>
             ☠️
           </span>
-          <button className={"btn btn-primary"} onClick={()=>setAlive(playerIndex, true)}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => setAlive(playerIndex, true)}
+          >
             <span role="img" aria-label={"death"}>
               👼🏻
             </span>
@@ -36,19 +38,34 @@ const PlayerTile = ({ player, playerIndex, setAlive, updateLife }: Props) => {
           <p>Poison : {player.poison}</p>
           <p>Commander: -</p>
           <p>Alive : {player.alive ? "😃" : "💀"}</p>
-          <button className={"btn btn-primary"} onClick={() => updateLife(playerIndex, -1)}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => updateLife(playerIndex, -1)}
+          >
             -1
           </button>
-          <button className={"btn btn-primary"} onClick={() => updateLife(playerIndex, 1)}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => updateLife(playerIndex, 1)}
+          >
             +1
           </button>
-          <button className={"btn btn-primary"} onClick={() => updateLife(playerIndex, -5)}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => updateLife(playerIndex, -5)}
+          >
             -5
           </button>
-          <button className={"btn btn-primary"} onClick={() => updateLife(playerIndex, 5)}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => updateLife(playerIndex, 5)}
+          >
             +5
           </button>
-          <button className={"btn btn-primary"} onClick={()=>setAlive(playerIndex, false)}>
+          <button
+            className={"btn btn-primary"}
+            onClick={() => setAlive(playerIndex, false)}
+          >
             <span role="img" aria-label={"toDeath"}>
               ☠️
             </span>
